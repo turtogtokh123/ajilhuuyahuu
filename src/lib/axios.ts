@@ -6,6 +6,7 @@ const apiClient = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    timeout: 10000, // 10 second timeout
 });
 
 // Request interceptor to add token
@@ -26,6 +27,18 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
+        // Network error - backend not available
+        if (!error.response) {
+            console.error('Backend API not available:', error.message);
+            // You could redirect to an error page or show a message
+            return Promise.reject({
+                response: {
+                    data: { error: 'Backend service is currently unavailable' },
+                    status: 503
+                }
+            });
+        }
+
         if (error.response?.status === 401) {
             // Unauthorized - clear token
             Cookies.remove('token');
