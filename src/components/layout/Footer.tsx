@@ -1,6 +1,11 @@
+'use client';
+
 import { Building2, Github, Twitter, Linkedin } from 'lucide-react';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 export function Footer() {
+    const { t } = useLanguage();
+
     return (
         <footer className="bg-gray-900 text-gray-300 mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -11,7 +16,7 @@ export function Footer() {
                             <span className="text-2xl font-bold text-white">ReviewHub</span>
                         </div>
                         <p className="text-gray-400 mb-4">
-                            The premier platform for honest company reviews. Help others make informed career decisions.
+                            {t.footer.tagline}
                         </p>
                         <div className="flex space-x-4">
                             <a href="#" className="hover:text-blue-500 transition-colors">
@@ -27,26 +32,26 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-white font-semibold mb-4">Company</h3>
+                        <h3 className="text-white font-semibold mb-4">{t.footer.company}</h3>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">About</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Careers</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Blog</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.about}</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.careers}</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.blog}</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="text-white font-semibold mb-4">Support</h3>
+                        <h3 className="text-white font-semibold mb-4">{t.footer.support}</h3>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Help Center</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Privacy</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Terms</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.helpCenter}</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.privacy}</a></li>
+                            <li><a href="#" className="hover:text-blue-500 transition-colors">{t.footer.terms}</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                    <p>&copy; {new Date().getFullYear()} ReviewHub. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} ReviewHub. {t.footer.rights}.</p>
                 </div>
             </div>
         </footer>

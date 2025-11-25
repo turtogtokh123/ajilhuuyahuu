@@ -2,11 +2,17 @@
 
 import Link from 'next/link';
 import { useAuth } from '@/providers/AuthProvider';
+import { useLanguage } from '@/providers/LanguageProvider';
 import { Button } from '@/components/ui/Button';
-import { Building2, LogOut, User, LayoutDashboard } from 'lucide-react';
+import { Building2, LogOut, User, LayoutDashboard, Languages } from 'lucide-react';
 
 export function Navbar() {
     const { user, logout } = useAuth();
+    const { language, setLanguage, t } = useLanguage();
+
+    const toggleLanguage = () => {
+        setLanguage(language === 'en' ? 'mn' : 'en');
+    };
 
     return (
         <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
@@ -24,8 +30,17 @@ export function Navbar() {
                             href="/companies"
                             className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                         >
-                            Companies
+                            {t.navbar.companies}
                         </Link>
+
+                        <button
+                            onClick={toggleLanguage}
+                            className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            title={language === 'en' ? 'Switch to Mongolian' : 'Switch to English'}
+                        >
+                            <Languages className="h-4 w-4" />
+                            <span className="text-sm">{language === 'en' ? 'MN' : 'EN'}</span>
+                        </button>
 
                         {user ? (
                             <>
@@ -35,7 +50,7 @@ export function Navbar() {
                                         className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                     >
                                         <LayoutDashboard className="h-4 w-4" />
-                                        <span>Admin</span>
+                                        <span>{t.navbar.admin}</span>
                                     </Link>
                                 )}
                                 <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
@@ -49,18 +64,18 @@ export function Navbar() {
                                     className="flex items-center space-x-1"
                                 >
                                     <LogOut className="h-4 w-4" />
-                                    <span>Logout</span>
+                                    <span>{t.navbar.logout}</span>
                                 </Button>
                             </>
                         ) : (
                             <>
                                 <Link href="/auth/login">
                                     <Button variant="outline" size="sm">
-                                        Login
+                                        {t.navbar.login}
                                     </Button>
                                 </Link>
                                 <Link href="/auth/register">
-                                    <Button size="sm">Sign Up</Button>
+                                    <Button size="sm">{t.navbar.signUp}</Button>
                                 </Link>
                             </>
                         )}
